@@ -3,7 +3,7 @@ Provides an advanced baseline to implement a secure Windows auditing strategy on
 
 
 # Event log	| Default status | 	New status   |	 Host scope	|   Comment
-|:-----------------------------|:------------------|:------------------|:----------|:---------------
+|:-----------------------------|:------------------|:------------------|:----------|:---------------|
 Microsoft-Windows-CAPI2/Operational | Disabled | All | 
 Microsoft-Windows-LSA/Operational | Disabled | All | 
 Microsoft-Windows-PrintService/Admin | Disabled | All | 
