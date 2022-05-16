@@ -12,8 +12,8 @@ Provides an advanced baseline to implement a secure Windows auditing strategy on
 
 ## Disabled event log
 The following table resume valuable Windows event logs that are per default disabled. 
-Event log	| Default status | 	New status   |	 Host scope	| 
-|:------------------------ |:------------------|:------------------|:----------|:---------------|
+Event log	| Default status | 	New status   |	 Host scope	|
+|:------------------------ |:------------------|:------------------|:----------|
 Microsoft-Windows-Crypto-NCrypt/Operational | Disabled | Disabled (manual activation) | All
 Microsoft-Windows-CAPI2/Operational | Disabled | Enabled | All
 Microsoft-Windows-LSA/Operational | Disabled | Enabled | All
