@@ -1,17 +1,17 @@
 # Windows-auditing-baseline
 
 ## Project purpose
-Defining a security audit strategy is a very challenging project, no matter the size of your organization. Indeed, it requires a very good understanding regarding how event logging works, knowledge about the value of hidden or unknown Windows logs and the meaning and impact of each event ID.
-In order to address this challenge, *Windows-auditing-strategy* project provides an advanced baseline that can be applied to any Active Directory environment in order to increase visibility on suspicious activities with a minimum of effort.
+Defining a security audit baseline is a very challenging project, no matter the size of your organization. Indeed, it requires a very good understanding regarding how event logging works, knowledge about the value of hidden or unknown Windows logs and the meaning and impact of each event ID.
+In order to address this challenge, *Windows-auditing-baseline* project provides an advanced baseline that can be applied to any Active Directory environment in order to increase visibility on suspicious activities with a minimum of effort.
 
 ## Project description
 At the following you will find the different auditing steps to configure on your Windows assets. We advised to create 3 group policies (domain controllers, member servers and workstations) for granularity and flexibility purposes. In detail, the following points will be covered:
 * **1-Auditing baseline**: configure auditing settings to increase visibility on your assets
 * **2-Disabled event logs**: enable disabled but valuable event logs to increase visibility
-* **3-Log sizing**: increase log retention to reduce the risk of data being overwritten and collected
+* **3-Log sizing**: increase log retention to reduce the risk of data being overwritten and not forwarded
 
 ## 1-Auditing baseline
-The security auditing baseline is defined in the following [document](XXXXXXXXXXXXXXXX). It highlights the different subcategories to audit (success and/or failure) together with the related **MITRE TTPs** that it can cover (if applicable). We also recommend to apply additional steps from [Palantir](https://github.com/palantir/windows-event-forwarding/tree/master/group-policy-objects) for PowerShell auditing, command line auditing and WinRM client.
+The security auditing baseline is defined in the following [document](https://1drv.ms/x/s!Atu5cjCGMw0sk6lz2u_kEgpoFQJZYg?e=KIJti9). It highlights the different subcategories to audit (success and/or failure) together with the related **MITRE TTPs** that it can cover (if applicable). We also recommend to apply additional steps from [Palantir](https://github.com/palantir/windows-event-forwarding/tree/master/group-policy-objects) for PowerShell auditing, command line auditing and WinRM client.
 
 ## 2-Disabled event logs
 Windows operating system is provided with several event log that, despite of being disabled, can provide valuable information. The table at the following resume these events logs together with the advised action to perform (enable or manual activation).
@@ -57,8 +57,9 @@ Windows event logs are per default defined with a very limited size (between 15 
 ![](/pictures/event_log_sizing.png)
 
 # Sources
-The following sources were used to elaborate the auditing strategy:
+The following sources were used to elaborate the auditing baseline:
 * **Palantir WEF/WEC**: https://github.com/palantir/windows-event-forwarding
+* **Event log mindmap**: https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap
 * **Notable events**: https://github.com/TonyPhipps/SIEM/blob/master/Notable-Event-IDs.md#microsoft-windows-winrmoperational
 * **Event forwarding guidance**: https://github.com/nsacyber/Event-Forwarding-Guidance/blob/master/Events/README.md
 * **NSA guidance**: https://apps.nsa.gov/iaarchive/library/ia-guidance/security-configuration/applications/assets/public/upload/Spotting-the-Adversary-with-Windows-Event-Log-Monitoring.pdf
