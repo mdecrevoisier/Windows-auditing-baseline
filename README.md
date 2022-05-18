@@ -1,4 +1,4 @@
-# Windows-auditing-strategy
+# Windows-auditing-baseline
 
 ## Project purpose
 Defining a security audit policy is a very challenging project, no matter the size of your organization. Indeed, it requires a very good understanding regarding how event logging works, knowledge about the powerful value of hidden or unknown Windows logs and the meaning and impact of each event ID.
