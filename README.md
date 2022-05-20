@@ -57,7 +57,7 @@ Windows event logs are per default defined with a very limited size (between 15 
 ![](/pictures/event_log_sizing.png)
 
 # To do 
-[ ]Create an ADMX template or provide a GPO template using Microsoft AGPM
+[ ] Create an ADMX template or provide a GPO template using Microsoft AGPM
 
 # Sources
 The following sources were used to elaborate the auditing baseline:
