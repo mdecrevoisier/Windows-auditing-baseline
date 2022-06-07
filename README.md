@@ -30,13 +30,13 @@ Microsoft-Windows-Crypto-NCrypt/Operational | Disabled | Disabled (manual activa
 Microsoft-Windows-CAPI2/Operational | Disabled | Enabled | All
 Microsoft-Windows-LSA/Operational | Disabled | Enabled | All
 Microsoft-Windows-PrintService/Admin | Disabled | Enabled | All
-Authentication/ProtectedUser-Client | Disabled | Enabled | All
+Microsoft-Windows-Authentication/ProtectedUser-Client | Disabled | Enabled | All
 Microsoft-Windows-PrintService/Operational | Disabled | Enabled | All
 Microsoft-Windows-DriverFrameworks-UserMode/Operational | Disabled | Enabled | All
 Microsoft-Windows-DNS-Client/Operational | Disabled | Disabled (manual activation) | Workstations
-Authentication/AuthenticationPolicyFailures-DomainController | Disabled | Enabled | Domain controllers
-Authentication/ProtectedUserFailures-DomainController | Disabled | Enabled | Domain controllers
-Authentication/ProtectedUserSuccesses-DomainController | Disabled | Enabled | Domain controllers
+Microsoft-Windows-Authentication/AuthenticationPolicyFailures-DomainController | Disabled | Enabled | Domain controllers
+Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController | Disabled | Enabled | Domain controllers
+Microsoft-Windows-Authentication/ProtectedUserSuccesses-DomainController | Disabled | Enabled | Domain controllers
 Microsoft-IIS-Configuration/Administrative | Disabled | Disabled (manual activation) | Servers: web (IIS)
 Microsoft-IIS-Configuration/Operational | Disabled | Disabled (manual activation) | Servers: web (IIS)
 Microsoft-IIS-Logging/Logs | Disabled | Disabled (manual activation) | Servers: web (IIS)
