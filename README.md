@@ -6,9 +6,9 @@ In order to address this challenge, *Windows-auditing-baseline* project provides
 
 ## Project description
 At the following you will find the different auditing steps to configure on your Windows assets. We advised to create 3 group policies (domain controllers, member servers and workstations) for granularity and flexibility purposes. In detail, the following points will be covered:
-* **1-Auditing baseline**: configure auditing settings to increase visibility on your assets
-* **2-Disabled event logs**: enable disabled but valuable event logs to increase visibility
-* **3-Log sizing**: increase log retention to reduce the risk of data being overwritten and not forwarded
+* **1-Auditing baseline**: configure auditing settings to increase visibility on your assets.
+* **2-Disabled event logs**: enable disabled but valuable event logs to increase visibility.
+* **3-Log sizing**: increase log retention to reduce the risk of data being overwritten and not forwarded. At the same time, use the caching feature of your log forwarding agent (if available) to avoid data loss.
 
 ## 1-Auditing baseline
 The security auditing baseline is defined in the following [document](https://1drv.ms/x/s!Atu5cjCGMw0sk6lz2u_kEgpoFQJZYg?e=KIJti9). It highlights the different subcategories to audit (success and/or failure) together with the related **MITRE TTPs** that it can cover (if applicable). We also recommend to apply additional steps from [Palantir](https://github.com/palantir/windows-event-forwarding/tree/master/group-policy-objects) for PowerShell auditing, command line auditing and WinRM client.
@@ -17,35 +17,35 @@ The security auditing baseline is defined in the following [document](https://1d
 Windows operating system is provided with several event log that, despite of being disabled, can provide valuable information. The table at the following resume these events logs together with the advised action to perform (enable or manual activation).
 
 ### Activation
-To enable a disabled event log, edit the following registry key using the Group Policy Preferences (GPP) feature on the concerned Group Policy object (DC, SRV, WS):
+To enable a disabled event log, edit the following registry key using the Group Policy Preferences (GPP) feature on the concerned Group Policy object (DC, SRV, WS) for the event log mentionned at the following:
 * *Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\\<Event log name>*
 * *Value "Enabled" = 1*
 
 ![](/pictures/disabled_eventlog_gpp_registry_activation.png)
 
 ### Event logs list
-Event log name	| Default status | 	New advised status |	 Host scope	|
+Event log name	| Category | TTP ID | TTP name
 |:------------------------ |:------------------:|:------------------:|:----------:|
-Microsoft-Windows-Crypto-NCrypt/Operational | Disabled | Disabled (manual activation) | All
-Microsoft-Windows-CAPI2/Operational | Disabled | Enabled | All
-Microsoft-Windows-LSA/Operational | Disabled | Enabled | All
-Microsoft-Windows-PrintService/Admin | Disabled | Enabled | All
-Microsoft-Windows-Authentication/ProtectedUser-Client | Disabled | Enabled | All
-Microsoft-Windows-PrintService/Operational | Disabled | Enabled | All
-Microsoft-Windows-DriverFrameworks-UserMode/Operational | Disabled | Enabled | All
-Microsoft-Windows-DNS-Client/Operational | Disabled | Disabled (manual activation) | Workstations
-Microsoft-Windows-Authentication/AuthenticationPolicyFailures-DomainController | Disabled | Enabled | Domain controllers
-Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController | Disabled | Enabled | Domain controllers
-Microsoft-Windows-Authentication/ProtectedUserSuccesses-DomainController | Disabled | Enabled | Domain controllers
-Microsoft-IIS-Configuration/Administrative | Disabled | Disabled (manual activation) | Servers: web (IIS)
-Microsoft-IIS-Configuration/Operational | Disabled | Disabled (manual activation) | Servers: web (IIS)
-Microsoft-IIS-Logging/Logs | Disabled | Disabled (manual activation) | Servers: web (IIS)
-Microsoft-Windows-Base-Filtering-Engine-Connections/Operational | Disabled | Disabled (manual activation) | Servers: VPN
-Microsoft-Windows-Base-Filtering-Engine-Resource-Flows/Operational | Disabled | Disabled (manual activation) | Servers: VPN
-Microsoft-Windows-WinNat/Oper | Disabled | Disabled (manual activation) | Servers: VPN
-Microsoft-Windows-Iphlpsvc | Disabled | Disabled (manual activation) | Servers: VPN
-Microsoft-Windows-Dhcp-Client/Operational | Disabled | Enabled | Workstations
-Microsoft-Windows-BitLocker/BitLocker Operational | Disabled | Enabled | Workstations
+DhcpAdminEvents | DHCP server |  | 
+Microsoft-IIS-Configuration/Administrative | Web server |  | 
+Microsoft-IIS-Configuration/Operational | Web server |  | 
+Microsoft-Windows-Authentication/AuthenticationPolicyFailures-DomainController | Authentication | T1110 | Brutforce
+Microsoft-Windows-Authentication/ProtectedUser-Client | Authentication | T1078 | Valid accounts
+Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController | Authentication | T1110 | Brutforce
+Microsoft-Windows-Authentication/ProtectedUserSuccesses-DomainController | Authentication | T1558 | Steal or Forge Kerberos Tickets 
+Microsoft-Windows-Base-Filtering-Engine-Connections/Operational | VPN server |  | 
+Microsoft-Windows-Base-Filtering-Engine-Resource-Flows/Operational | VPN server |  | 
+Microsoft-Windows-BitLocker/BitLocker Operational | BitLocker | T1486 |  Data Encrypted for Impact 
+Microsoft-Windows-CAPI2/Operational | Crypto | T1552.004 | Unsecured Credentials-Private Keys
+Microsoft-Windows-Crypto-NCrypt/Operational | Crypto |  | 
+Microsoft-Windows-Dhcp-Client/Operational | DHCP client |  | 
+Microsoft-Windows-DhcpNap/Operational | DHCP server |  | 
+Microsoft-Windows-Dhcp-Server/Operational | DHCP server |  | 
+Microsoft-Windows-DriverFrameworks-UserMode/Operational | Drivers | T1091 | Replication Through Removable Media 
+Microsoft-Windows-Iphlpsvc | VPN server |  | 
+Microsoft-Windows-PrintService/Operational | Printer | T1574.002 | Hijack Execution Flow: DLL Side-Loading 
+Microsoft-Windows-WinNat/Oper | VPN server |  | 
+
 
 ## 3-Log sizing
 Windows event logs are per default defined with a very limited size (between 15 et 20 MB). Having such limited size introduce the risk of data being overwritten and not collected in the case of, for example, limited connectivity due to network outage, VPN unreachable … Therefore we advise to increase the size for the following event logs:
@@ -57,12 +57,12 @@ Windows event logs are per default defined with a very limited size (between 15 
 ![](/pictures/event_log_sizing.png)
 
 # To do 
-[ ] Create an ADMX template or provide a GPO template using Microsoft AGPM
+[] Create a GPO template
 
 # Sources
 The following sources were used to elaborate the auditing baseline:
-* **Palantir WEF/WEC**: https://github.com/palantir/windows-event-forwarding
 * **Event log mindmap**: https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap
+* **Palantir WEF/WEC**: https://github.com/palantir/windows-event-forwarding
 * **Notable events**: https://github.com/TonyPhipps/SIEM/blob/master/Notable-Event-IDs.md#microsoft-windows-winrmoperational
 * **Event forwarding guidance**: https://github.com/nsacyber/Event-Forwarding-Guidance/blob/master/Events/README.md
 * **NSA guidance**: https://apps.nsa.gov/iaarchive/library/ia-guidance/security-configuration/applications/assets/public/upload/Spotting-the-Adversary-with-Windows-Event-Log-Monitoring.pdf
@@ -73,3 +73,6 @@ The following sources were used to elaborate the auditing baseline:
 * **Audit policy best practices**: https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations
 * **Logging essentials**: https://github.com/JSCU-NL/logging-essentials/blob/main/WindowsEventLogging.adoc
 * **Windows 10 event manifest**: https://github.com/repnz/etw-providers-docs/tree/master/Manifests-Win10-17134
+* **Windows event ID mapping**: https://github.com/JSCU-NL/logging-essentials/blob/main/WindowsEventIDMapping.json
+* **Windows events auditing per subcategory**: https://girl-germs.com/?p=363
+* **Joint Sigint Cyber Unit logging essential**: https://github.com/JSCU-NL/logging-essentials/blob/main/WindowsEventLogging.adoc#account-activity
