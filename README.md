@@ -1,23 +1,30 @@
 # Windows-auditing-baseline
 
-## Project purpose
-Defining a security audit baseline is a very challenging project, no matter the size of your organization. Indeed, it requires a very good understanding regarding how event logging works, knowledge about the value of hidden or unknown Windows logs and the meaning and impact of each event ID.
-In order to address this challenge, *Windows-auditing-baseline* project provides an advanced baseline that can be applied to any Active Directory environment in order to increase visibility on suspicious activities with a minimum of effort.
+## Project goal
+Defining a security audit baseline is a very challenging project, no matter the size of your organization. Indeed, it requires a very good understanding about event logging, knowledge about the value of each event, TTPs event relation and logging activation impact awareness. In order to address this challenge, *Windows-auditing-baseline* project was created. It provides a complete end-to-end toolset that can be applied to any Active Directory environment in order to enable advanced threat detection capacities with a minimum of effort.
 
-## Project description
-At the following you will find the different auditing steps to configure on your Windows assets. We advised to create 3 group policies (domain controllers, member servers and workstations) for granularity and flexibility purposes. In detail, the following points will be covered:
-* **1-Auditing baseline**: configure auditing settings to increase visibility on your assets.
-* **2-Disabled event logs**: enable disabled but valuable event logs to increase visibility.
-* **3-Log sizing**: increase log retention to reduce the risk of data being overwritten and not forwarded. At the same time, use the caching feature of your log forwarding agent (if available) to avoid data loss.
+## Activation steps overview
+At the following you will find the different steps to configure in your environment. We advised to create 3 group policies (domain controllers, member servers and workstations) for security, granularity and flexibility purposes. In detail, the following steps will be covered:
+* **0-Event log mindmap overview**: we advise to have a look on the different Windows [mindmaps](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap) to ensure correct understanding of the coverage.
+* **1-Auditing baseline**: overview of configured auditing settings in the group policy templates. It also provides a 1 to 1 relation between each event ID and the MITRE ATT&CK framework TTPs.
+* **2-Group policy templates**: pre-configured group policy objects ready for direct import in your group policy console. 
+* **2.1-Disabled event logs** *(already covered in point 2, manual configuration steps at the following)*: enable disabled but valuable event logs to increase visibility.
+* **2.2-Log sizing** *(already covered in point 2, manual configuration steps at the following)*: increase log retention to reduce the risk of data being overwritten and not forwarded. At the same time, use the caching feature of your log forwarding agent (if available) to avoid data loss.
+* **3-Agent configuration**: provide a configuration file for the Windows Splunk Universal Forwarder which collects the required event IDs from the >70 different event log channels mentionned in the points 0 and 1.
 
 ## 1-Auditing baseline
-The security auditing baseline is defined in the following [document](https://1drv.ms/x/s!Atu5cjCGMw0sk6lz2u_kEgpoFQJZYg?e=KIJti9). It highlights the different subcategories to audit (success and/or failure) together with the related **MITRE TTPs** that it can cover (if applicable). We also recommend to apply additional steps from [Palantir](https://github.com/palantir/windows-event-forwarding/tree/master/group-policy-objects) for PowerShell auditing, command line auditing and WinRM client.
+The security auditing baseline is defined in the following [document](https://1drv.ms/x/s!Atu5cjCGMw0sk6lz2u_kEgpoFQJZYg?e=KIJti9). It highlights the different subcategories to audit (success and/or failure) together with the related **MITRE TTPs** that it can cover (if applicable). We recommend to evaluate your internal auditing  requirements and to adjust the group policy templates accordingly. We also recommend to apply additional steps from [Palantir](https://github.com/palantir/windows-event-forwarding/tree/master/group-policy-objects) for PowerShell auditing, command line auditing and WinRM client.
+![](/pictures/event_id_per_category.png)
+![](/pictures/event_id_per_ttp.png)
 
-## 2-Disabled event logs
-Windows operating system is provided with several event log that, despite of being disabled, can provide valuable information. The table at the following resume these events logs together with the advised action to perform (enable or manual activation).
+## 2-Group policy templates
+*[WORK IN PROGRESS]*
+
+## 2.1-Disabled event logs
+*This step is already performed in the group policy templates*. Windows operating system is provided with several event logs that, despite of being disabled, can provide valuable information. The table at the following resumes these events logs together with the advised action to perform.
 
 ### Activation
-To enable a disabled event log, edit the following registry key using the Group Policy Preferences (GPP) feature on the concerned Group Policy object (DC, SRV, WS) for the event log mentionned at the following:
+To enable a disabled event log, edit the following registry key using the Group Policy Preferences (GPP) feature on the concerned Group Policy object (DC, SRV, WS) for the event log mentioned at the following:
 * *Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\\<Event log name>*
 * *Value "Enabled" = 1*
 
@@ -46,9 +53,8 @@ Microsoft-Windows-Iphlpsvc | VPN server |  |
 Microsoft-Windows-PrintService/Operational | Printer | T1574.002 | Hijack Execution Flow: DLL Side-Loading 
 Microsoft-Windows-WinNat/Oper | VPN server |  | 
 
-
-## 3-Log sizing
-Windows event logs are per default defined with a very limited size (between 15 et 20 MB). Having such limited size introduce the risk of data being overwritten and not collected in the case of, for example, limited connectivity due to network outage, VPN unreachable … Therefore we advise to increase the size for the following event logs:
+## 2.2-Log sizing
+*This step is already performed in the group policy templates*. Windows event logs are per default defined with a very limited size (between 15 and 20 MB). Having such limited size introduce the risk of data being overwritten and not collected in the case of, for example, limited connectivity due to network outage, VPN unreachable … Therefore we advise to increase the size for the following event logs:
 * **Security event log**: in the group policy settings (see picture below), go to *Computer > Policies > Admin Templates > Windows Components > Event Log Service > Security  > Specific the maximum log file size (KB)* > 2 GB
 * **Application event log**: in the group policy settings (see picture below), go to *Computer > Policies > Admin Templates > Windows Components > Event Log Service > Application  > Specific the maximum log file size (KB)* > 256 MB
 * **System event log**: in the group policy settings (see picture below), go to *Computer > Policies > Admin Templates > Windows Components > Event Log Service > System  > Specific the maximum log file size (KB)* > 256 MB
@@ -56,8 +62,9 @@ Windows event logs are per default defined with a very limited size (between 15 
 
 ![](/pictures/event_log_sizing.png)
 
-# To do 
-[] Create a GPO template
+## 3. Agent configuration
+*[WORK IN PROGRESS]*
+
 
 # Sources
 The following sources were used to elaborate the auditing baseline:
@@ -76,3 +83,4 @@ The following sources were used to elaborate the auditing baseline:
 * **Windows event ID mapping**: https://github.com/JSCU-NL/logging-essentials/blob/main/WindowsEventIDMapping.json
 * **Windows events auditing per subcategory**: https://girl-germs.com/?p=363
 * **Joint Sigint Cyber Unit logging essential**: https://github.com/JSCU-NL/logging-essentials/blob/main/WindowsEventLogging.adoc#account-activity
+* **Windows 10 & Windows 11 changes in eventlog**: https://github.com/AndrewRathbun/SANSGoldPaperResearch_FOR500_Rathbun/tree/main/EventLogs 
