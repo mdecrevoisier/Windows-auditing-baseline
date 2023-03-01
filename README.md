@@ -33,25 +33,23 @@ To enable a disabled event log, edit the following registry key using the Group 
 ### Event logs list
 Event log name	| Category | TTP ID | TTP name
 |:------------------------ |:------------------:|:------------------:|:----------:|
-DhcpAdminEvents | DHCP server |  | 
-Microsoft-IIS-Configuration/Administrative | Web server |  | 
-Microsoft-IIS-Configuration/Operational | Web server |  | 
 Microsoft-Windows-Authentication/AuthenticationPolicyFailures-DomainController | Authentication | T1110 | Brutforce
 Microsoft-Windows-Authentication/ProtectedUser-Client | Authentication | T1078 | Valid accounts
 Microsoft-Windows-Authentication/ProtectedUserFailures-DomainController | Authentication | T1110 | Brutforce
 Microsoft-Windows-Authentication/ProtectedUserSuccesses-DomainController | Authentication | T1558 | Steal or Forge Kerberos Tickets 
-Microsoft-Windows-Base-Filtering-Engine-Connections/Operational | VPN server |  | 
-Microsoft-Windows-Base-Filtering-Engine-Resource-Flows/Operational | VPN server |  | 
-Microsoft-Windows-BitLocker/BitLocker Operational | BitLocker | T1486 |  Data Encrypted for Impact 
 Microsoft-Windows-CAPI2/Operational | Crypto | T1552.004 | Unsecured Credentials-Private Keys
 Microsoft-Windows-Crypto-NCrypt/Operational | Crypto |  | 
 Microsoft-Windows-Dhcp-Client/Operational | DHCP client |  | 
+DhcpAdminEvents | DHCP server |  | 
 Microsoft-Windows-DhcpNap/Operational | DHCP server |  | 
-Microsoft-Windows-Dhcp-Server/Operational | DHCP server |  | 
 Microsoft-Windows-DriverFrameworks-UserMode/Operational | Drivers | T1091 | Replication Through Removable Media 
-Microsoft-Windows-Iphlpsvc | VPN server |  | 
 Microsoft-Windows-PrintService/Operational | Printer | T1574.002 | Hijack Execution Flow: DLL Side-Loading 
+Microsoft-Windows-Base-Filtering-Engine-Connections/Operational | VPN server |  | 
+Microsoft-Windows-Base-Filtering-Engine-Resource-Flows/Operational | VPN server |  | 
+Microsoft-Windows-Iphlpsvc | VPN server |  | 
 Microsoft-Windows-WinNat/Oper | VPN server |  | 
+Microsoft-IIS-Configuration/Administrative | Web server |  | 
+Microsoft-IIS-Configuration/Operational | Web server |  | 
 
 ## 2.2-Log sizing
 *This step is already performed in the group policy templates*. Windows event logs are per default defined with a very limited size (between 15 and 20 MB). Having such limited size introduce the risk of data being overwritten and not collected in the case of, for example, limited connectivity due to network outage, VPN unreachable … Therefore we advise to increase the size for the following event logs:
@@ -63,7 +61,9 @@ Microsoft-Windows-WinNat/Oper | VPN server |  |
 ![](/pictures/event_log_sizing.png)
 
 ## 3. Agent configuration
-*[WORK IN PROGRESS]*
+Once the auditing baseline is in place and proper events and/or channels are activated, it may be necessary to configure your agent or agent-less solution to forward logs to a SIEM or a central collector. At the following you will find two configuration templates in order to enable log forwarding to the choosen destination:
+* **Agent based using the Splunk UF agent**: refers to my *Splunk input windows baseline* [project](https://github.com/mdecrevoisier/Splunk-input-windows-baseline) which defines the different Event IDs and Channel to read.
+* **Agentless based using Windows Event Forwarding (WEF)**: refers to my *WEC server auto deploy* [project](https://github.com/mdecrevoisier/Windows-WEC-server_auto-deploy) in order to configure the WEC server together with preconfigured XML subscriptions (subscriptions contains the Event IDs and Channels to read).
 
 
 # Sources
