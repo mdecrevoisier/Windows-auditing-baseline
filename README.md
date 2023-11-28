@@ -69,6 +69,7 @@ Once the auditing baseline is in place and proper events and/or channels are act
 # Sources
 The following sources were used to elaborate the auditing baseline:
 * **Event log mindmap**: https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap
+* **Yamato Windows log settings**: https://github.com/Yamato-Security/EnableWindowsLogSettings
 * **Palantir WEF/WEC**: https://github.com/palantir/windows-event-forwarding
 * **Notable events**: https://github.com/TonyPhipps/SIEM/blob/master/Notable-Event-IDs.md#microsoft-windows-winrmoperational
 * **Event forwarding guidance**: https://github.com/nsacyber/Event-Forwarding-Guidance/blob/master/Events/README.md
