@@ -13,7 +13,7 @@ At the following you will find the different steps to configure in your environm
 * **3-Agent configuration**: provide a configuration file for the Windows Splunk Universal Forwarder which collects the required event IDs from the >70 different event log channels mentionned in the points 0 and 1.
 
 ## 1-Auditing baseline
-The security auditing baseline is defined in the following [document](https://1drv.ms/x/s!Atu5cjCGMw0sk6lz2u_kEgpoFQJZYg?e=KIJti9). It highlights the different subcategories to audit (success and/or failure) together with the related **MITRE TTPs** that it can cover (if applicable). We recommend to evaluate your internal auditing  requirements and to adjust the group policy templates accordingly. We also recommend to apply additional steps from [Palantir](https://github.com/palantir/windows-event-forwarding/tree/master/group-policy-objects) for PowerShell auditing, command line auditing and WinRM client.
+The security auditing baseline is defined in the following [document](/files/Windows_auditing_guidelinesg_GPO.xlsx). It highlights the different subcategories to audit (success and/or failure) together with the related **MITRE TTPs** that it can cover (if applicable). We recommend to evaluate your internal auditing  requirements and to adjust the group policy templates accordingly. We also recommend to apply additional steps from [Palantir](https://github.com/palantir/windows-event-forwarding/tree/master/group-policy-objects) for PowerShell auditing, command line auditing and WinRM client.
 ![](/pictures/event_id_per_category.png)
 ![](/pictures/event_id_per_ttp.png)
 
