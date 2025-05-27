@@ -68,6 +68,7 @@ Once the auditing baseline is in place and proper events and/or channels are act
 
 # Sources
 The following sources were used to elaborate the auditing baseline:
+* **Splunk audit policy guide** : https://www.splunk.com/en_us/blog/security/windows-audit-policy-guide.html
 * **Event log mindmap**: https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap
 * **Yamato Windows log settings**: https://github.com/Yamato-Security/EnableWindowsLogSettings
 * **Palantir WEF/WEC**: https://github.com/palantir/windows-event-forwarding
